@@ -1,0 +1,9 @@
+水资源调配：中型水库录入（李旭），大沽河沿线泵站（李旭），调度令（晨旭） swagger-客水录入-data_guest_water, 水库容量（旭哥），水库水位（旭哥），水库渗压（某该）
+取用水监管：往后放放（振良）
+水源地保护：原水水质数据录入，地下水位监测（查询），水源地保护：data-water-source-protect/controller,measure-controller(水源地保护列表，详情)
+节水用水：每个图表的数据录入（先不看）。
+
+巡河事件：河湖问题监管情况表：data_lake_problem
+河长通信录：河长制信息录入，移动端-河段河长信息 mobile_river_chief
+巡河统计：（往后放放）
+smartwater/rural/situation/
