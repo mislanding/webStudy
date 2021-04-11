@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组扁平化</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    const arr = [1, [2, [3, [4, 5]]], 6];
+    console.log(arr);
+    //1、使用flat（）
+    const res1 = arr.flat(Infinity);
+    console.log("res1:", res1);
+    //2、利用正则
+    const res2 = JSON.stringify(arr).replace(/\[|\]/g, ' ').split(",");
+    console.log("res2:", res2);
+    //3、正则改良版本
+    const res3 = JSON.parse('[' + JSON.stringify(arr).replace(/\[|\]/g, ' ') + ']');
+    console.log("res3:", res3);
+    //4、使用reduce
+    const flatten = arr => {
+        return arr.reduce((pre, cur) => {
+            return pre.concat(Array.isArray(cur) ? flatten(cur) : cur);
+        }, [])
+    }
+    const res4 = flatten(arr);
+    console.log("res4:", res4);
+    //5、函数递归
+    const res5 = [];
+    const fn = arr => {
+        for (let i = 0; i < arr.length; i++) {
+            if (Array.isArray(arr[i])) {
+                fn(arr[i]);
+            } else {
+                res5.push(arr[i]);
+            }
+        }
+    }
+    fn(arr);
+    console.log('res5:', res5);
+</script>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArrayPrototypeFilter</title>
+</head>
+
+<body>
+    <pre>
+    语法:
+        var newArray = arr.filter(callback(element[,index[,array]])[,thisArg]);
+    参数:
+        callback:
+            用来测试数组的每个元素的函数。返回true表示该元素通过测试，保留该元素，false组不保留。他接收以下三个参数：
+            element:
+                数组当中正在处理的元素
+            index(可选):
+                正在处理的元素再数组中的索引。
+            array(可选):
+                调用了filter的数组本身。
+        thisArg(可选):
+            执行callback时,用于this的值。
+    </pre>
+</body>
+
+</html>
+<script>
+    Array.prototype.filter = function(callback, thisArg) {
+        if (this == undefined) {
+            throw new TypeError('this is null or not undefined');
+        }
+        if (typeof callback !== 'function') {
+            throw new TypeError('calllback is not a function');
+        }
+        const res = [];
+        //让O成为回调对象的对象传递（强制转换对象）
+        const O = Object(this);
+        //>>>0保证len为number，且为正整数
+        const len = O.length >>> 0;
+        for (let i = 0; i < len; i++) {
+            //检查i是否在O的属性（会检查原型链）
+            if (i in O) {
+                if (callback.call(this.thisArg, O[i], i, O)) {
+                    res.push(O[i]);
+                }
+            }
+        }
+        return res;
+    }
+</script>
