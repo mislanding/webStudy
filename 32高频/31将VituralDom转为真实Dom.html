@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    // vnode结构：
+    // {
+    //   tag,
+    //   attrs,
+    //   children,
+    // }
+
+    function render(vnode, container) {
+        container.appendChild(_render(vnode));
+    }
+
+    function _render(vnode) {
+        //如果是数字类型转化为字符串
+        if (typeof vnode === 'number') {
+            vnode = String(vnode);
+        }
+        //字符串类型直接就是文本节点
+        if (typeof vnode === 'string') {
+            return document.createTextNode(vnode);
+        }
+        //普通dom
+        const dom = document.createElement(vnode.tag);
+        if (vnode.attrs) {
+            //遍历属性
+            Object.keys(vnode.attrs).forEach(key => {
+                const value = vnode.attrs[key];
+                dom.setAttribute(key, value);
+            })
+        }
+        //子数组进行递归操作
+        vnode.children.forEach(child => render(child, dom));
+        return dom;
+    }
+</script>

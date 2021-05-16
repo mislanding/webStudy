@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+
+<body>
+    <div class="container"></div>
+</body>
+
+</html>
+<script>
+    setTimeout(() => {
+        const once = 20;
+        const total = 10000;
+        let countOfRender = 0;
+        const loopCount = Math.floor(total / once);
+        const container = document.getElementsByClassName('container')[0];
+        console.log(container);
+
+        function add() {
+            const fragment = document.createDocumentFragment();
+            for (let i = 0; i < once; i++) {
+                const target = document.createElement("div");
+                target.className = "target";
+                // target.innerText = Math.floor(Math.random() * total);
+                fragment.appendChild(target);
+            }
+            container.appendChild(fragment);
+            countOfRender++;
+            loop();
+        }
+
+        function loop() {
+            if (countOfRender < loopCount) {
+                window.requestAnimationFrame(add);
+            }
+        }
+        loop();
+    }, 0);
+    const target = $('.target');
+    const observer = new IntersectionObserver(getYellow, {
+        threshold: 1.0
+    })
+
+    function getYellow(entries, observer) {
+        entries.forEach(entry => {
+            $(entry.target).css("background", "yellow");
+        })
+    }
+    target.each((index, element) => {
+        observer.observer(element);
+    });
+</script>
+<style>
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .target {
+        margin: 5px;
+        width: 20px;
+        height: 20px;
+        background: red;
+    }
+</style>
